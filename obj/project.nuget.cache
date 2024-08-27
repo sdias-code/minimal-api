@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Glv41jxnI4Eb64igYxVmKkecYhfSBF/NcxoEcZsW+HeHzTh0rq1tCf0IVEqC2dG6Af0mwDTDzG/k/V11DnXKSQ==",
+  "dgSpecHash": "wY866+mlJHLATfB7g8ZKEThgaaeD8QELfArGQhcVOf4duNMgf3c3uc8fWSOBHS3oohbjRaFdnVmq2awmrLp5gg==",
   "success": true,
-  "projectFilePath": "d:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\minimal-api.csproj",
+  "projectFilePath": "D:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\minimal-api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\silvi\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\silvi\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

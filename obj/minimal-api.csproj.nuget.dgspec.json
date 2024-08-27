@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\minimal-api.csproj": {}
+    "D:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\minimal-api.csproj": {}
   },
   "projects": {
-    "d:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\minimal-api.csproj": {
+    "D:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\minimal-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\minimal-api.csproj",
+        "projectUniqueName": "D:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\minimal-api.csproj",
         "projectName": "minimal-api",
-        "projectPath": "d:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\minimal-api.csproj",
+        "projectPath": "D:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\minimal-api.csproj",
         "packagesPath": "C:\\Users\\silvi\\.nuget\\packages\\",
-        "outputPath": "d:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\obj\\",
+        "outputPath": "D:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
