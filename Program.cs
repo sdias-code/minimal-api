@@ -8,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IAdministradorServico, AdminstradorServico>();
 
+builder.Services.AddEndpointsApiExplerer();
+builder.Services.AddSwagerGen();
+
 var pbuilder = builder.Configuration.GetConnectionString("conexaoMysql");
 
 builder.Services.AddDbContext<DbContexto>( options => {
@@ -29,6 +32,9 @@ app.MapPost("/login", ([FromBody] MininalApi.DTOs.LoginDTO loginDTO, IAdministra
     else
         return Results.Unauthorized();
 });
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.Run();
 

@@ -12,9 +12,7 @@ public class VeiculoServico : IVeiculoServico
 
     public VeiculoServico(DbContexto contexto){
         _contexto = contexto;
-    }
-
-   
+    }   
 
     public List<Veiculo> Todos(
         int pagina = 1,

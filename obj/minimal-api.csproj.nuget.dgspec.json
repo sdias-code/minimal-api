@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\minimal-api.csproj": {}
+    "D:\\treinamento\\bootcamp\\csharp\\minimal-api\\minimal-api.csproj": {}
   },
   "projects": {
-    "D:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\minimal-api.csproj": {
+    "D:\\treinamento\\bootcamp\\csharp\\minimal-api\\minimal-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\minimal-api.csproj",
+        "projectUniqueName": "D:\\treinamento\\bootcamp\\csharp\\minimal-api\\minimal-api.csproj",
         "projectName": "minimal-api",
-        "projectPath": "D:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\minimal-api.csproj",
-        "packagesPath": "C:\\Users\\silvi\\.nuget\\packages\\",
-        "outputPath": "D:\\2024-treinamento\\bootcamps-dio\\csharp\\projetos\\asp_net\\mininal-api-v1\\minimal-api\\obj\\",
+        "projectPath": "D:\\treinamento\\bootcamp\\csharp\\minimal-api\\minimal-api.csproj",
+        "packagesPath": "C:\\Users\\sdferreira\\.nuget\\packages\\",
+        "outputPath": "D:\\treinamento\\bootcamp\\csharp\\minimal-api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\silvi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sdferreira\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -27,6 +27,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
+          "http://www.nuget.sgi.ms.gov.br/nuget": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -73,6 +74,10 @@
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[8.0.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.7.3, )"
             }
           },
           "imports": [
@@ -94,7 +99,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

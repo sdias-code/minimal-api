@@ -98,3 +98,13 @@ D:\2024-treinamento\bootcamps-dio\csharp\projetos\asp_net\mininal-api-v1\minimal
 D:\2024-treinamento\bootcamps-dio\csharp\projetos\asp_net\mininal-api-v1\minimal-api\obj\Debug\net8.0\minimal-api.csproj.AssemblyReference.cache
 D:\2024-treinamento\bootcamps-dio\csharp\projetos\asp_net\mininal-api-v1\minimal-api\obj\Debug\net8.0\minimal-api.sourcelink.json
 D:\2024-treinamento\bootcamps-dio\csharp\projetos\asp_net\mininal-api-v1\minimal-api\obj\Debug\net8.0\minimal-.F3613C90.Up2Date
+D:\treinamento\bootcamp\csharp\minimal-api\obj\Debug\net8.0\minimal-api.csproj.AssemblyReference.cache
+D:\treinamento\bootcamp\csharp\minimal-api\obj\Debug\net8.0\minimal-api.GeneratedMSBuildEditorConfig.editorconfig
+D:\treinamento\bootcamp\csharp\minimal-api\obj\Debug\net8.0\minimal-api.AssemblyInfoInputs.cache
+D:\treinamento\bootcamp\csharp\minimal-api\obj\Debug\net8.0\minimal-api.AssemblyInfo.cs
+D:\treinamento\bootcamp\csharp\minimal-api\obj\Debug\net8.0\minimal-api.csproj.CoreCompileInputs.cache
+D:\treinamento\bootcamp\csharp\minimal-api\obj\Debug\net8.0\minimal-api.MvcApplicationPartsAssemblyInfo.cache
+D:\treinamento\bootcamp\csharp\minimal-api\obj\Debug\net8.0\minimal-api.sourcelink.json
+D:\treinamento\bootcamp\csharp\minimal-api\obj\Debug\net8.0\minimal-api.dll
+D:\treinamento\bootcamp\csharp\minimal-api\obj\Debug\net8.0\refint\minimal-api.dll
+D:\treinamento\bootcamp\csharp\minimal-api\obj\Debug\net8.0\minimal-api.pdb
