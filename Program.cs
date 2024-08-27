@@ -8,8 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IAdministradorServico, AdminstradorServico>();
 
-builder.Services.AddEndpointsApiExplerer();
-builder.Services.AddSwagerGen();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var pbuilder = builder.Configuration.GetConnectionString("conexaoMysql");
 
@@ -24,7 +25,9 @@ builder.Services.AddDbContext<DbContexto>( options => {
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Olá pessoal!");
+app.MapGet("/", () => Results.Json(
+    new Home()
+));
 
 app.MapPost("/login", ([FromBody] MininalApi.DTOs.LoginDTO loginDTO, IAdministradorServico adminstradorServico) => {
     if(adminstradorServico.Login(loginDTO) != null)
@@ -33,8 +36,11 @@ app.MapPost("/login", ([FromBody] MininalApi.DTOs.LoginDTO loginDTO, IAdministra
         return Results.Unauthorized();
 });
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.Run();
 
