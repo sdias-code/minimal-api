@@ -48,6 +48,7 @@ app.MapPost("/administradores/login", (
         return Results.Ok("Login realizado com sucesso");    
     else
         return Results.Unauthorized();
+
 }).WithTags("Administradores");
 
 #endregion
@@ -67,6 +68,7 @@ app.MapPost("/veiculos", (
     veiculoServico.Incluir(veiculo);
 
     return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
+
 }).WithTags("Veiculos");
 
 app.MapGet("/veiculos",(
@@ -75,6 +77,7 @@ app.MapGet("/veiculos",(
     var veiculos = veiculoServico.Todos(pagina);
 
     return Results.Ok(veiculos);
+
 }).WithTags("Veiculos");
 
 app.MapGet("/veiculos/{id}",(
@@ -87,6 +90,7 @@ app.MapGet("/veiculos/{id}",(
     }
 
     return Results.Ok(veiculo);
+
 }).WithTags("Veiculos");
 
 app.MapPut("/veiculos/{id}",(
@@ -106,8 +110,24 @@ app.MapPut("/veiculos/{id}",(
     veiculoServico.Atualizar(veiculo);
 
     return Results.Ok(veiculo);
+
 }).WithTags("Veiculos");
 
+app.MapDelete("/veiculos/{id}",(
+    [FromRoute] int id,     
+    IVeiculoServico veiculoServico) => {
+
+    var veiculo = veiculoServico.BuscaPorId(id);
+
+    if(veiculo == null){
+        return Results.NotFound();
+    }    
+
+    veiculoServico.Apagar(veiculo);
+
+    return Results.NoContent();
+
+}).WithTags("Veiculos");
 #endregion
 
 #region App
