@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MininalApi.Dominio.Entidades;
+using MininalApi.Dominio.Enuns;
 using MininalApi.Dominio.Interfaces;
 using MininalApi.Dominio.ModelViews;
 using MininalApi.Dominio.Servicos;
@@ -51,11 +52,94 @@ app.MapPost("/administradores/login", (
 
 }).WithTags("Administradores");
 
+app.MapGet("/administradores", (
+    [FromQuery] int? pagina, 
+    IAdministradorServico adminstradorServico) => {
+
+        var listAdms = new List<AdministradorModelViews>();
+
+        var administradores = adminstradorServico.Todos(pagina);
+
+        foreach(var adm in administradores){
+            listAdms.Add(new AdministradorModelViews{
+                Id = adm.Id,
+                Email = adm.Email,
+                Perfil = adm.Perfil
+            });
+        }
+    
+        return Results.Ok(listAdms);
+
+}).WithTags("administradores");
+
+app.MapGet("/administradores/{id}",(
+    [FromRoute] int id, 
+    IAdministradorServico adminstradorServico) => {
+        
+    var administrador = adminstradorServico.BuscaPorId(id);
+
+    if (administrador != null){
+        var admView = new AdministradorModelViews{
+            Id = administrador.Id,
+            Email = administrador.Email,
+            Perfil = administrador.Perfil
+            };
+
+        return Results.Ok(admView);
+    }    
+    else{
+        return Results.NotFound();
+    } 
+
+}).WithTags("Administradores");
+
+app.MapPost("/administradores", (
+    [FromBody] AdministradorDTO administradorDTO, 
+    IAdministradorServico adminstradorServico) => {
+
+        var validacao = new ErrosDeValidacoes{
+            Mensagens = new List<string>()
+        };
+
+        if(string.IsNullOrEmpty(administradorDTO.Email)){
+            validacao.Mensagens.Add("Email não pode ser vazio");
+        }
+
+        if(string.IsNullOrEmpty(administradorDTO.Senha)){
+            validacao.Mensagens.Add("A senha deve ser digitada");
+        }
+
+        if(administradorDTO.Perfil == null){
+            validacao.Mensagens.Add("O perfil deve ser incluído");
+        }
+
+        if(validacao.Mensagens.Count > 0){
+            return Results.BadRequest(validacao);
+        }
+
+        var veiculo = new Administrador{
+            Email = administradorDTO.Email,
+            Senha = administradorDTO.Senha,
+            Perfil = administradorDTO.Perfil.ToString() ?? Perfil.Editor.ToString()
+        };
+
+        var admView = new AdministradorModelViews{
+            Id = veiculo.Id,
+            Email = veiculo.Email,
+            Perfil = veiculo.Perfil
+            };
+
+        adminstradorServico.Incluir(veiculo);
+
+        return Results.Created($"/administrador/{admView.Id}", admView);
+
+}).WithTags("Administradores");
+
 #endregion
 
 #region Veículos
 
-ErrosDeValidacoes validarVeiculoDTO( VeiculoDTO veiculoDTO){
+static ErrosDeValidacoes validarVeiculoDTO( VeiculoDTO veiculoDTO){
      var validacao = new ErrosDeValidacoes{
         Mensagens = new List<string>()
      };
