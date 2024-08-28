@@ -55,15 +55,42 @@ app.MapPost("/administradores/login", (
 
 #region Veículos
 
+ErrosDeValidacoes validarVeiculoDTO( VeiculoDTO veiculoDTO){
+     var validacao = new ErrosDeValidacoes{
+        Mensagens = new List<string>()
+     };
+
+        if(string.IsNullOrEmpty(veiculoDTO.Nome)){
+            validacao.Mensagens.Add("O campo Nome deve ser preenchido");
+        }
+
+        if(string.IsNullOrEmpty(veiculoDTO.Marca)){
+            validacao.Mensagens.Add("O campo Marca deve ser preenchido");
+        }
+
+        if(veiculoDTO.Ano < 1900){
+            validacao.Mensagens.Add("O campo Ano deve ser preenchido com um valor válido");
+        }
+        
+        return validacao;
+}
+
 app.MapPost("/veiculos", (
     [FromBody] VeiculoDTO veiculoDTO, 
     IVeiculoServico veiculoServico) => {
+
+        var validacao = validarVeiculoDTO(veiculoDTO);        
+
+        if(validacao.Mensagens.Count != 0)
+        {
+            return Results.BadRequest(validacao.Mensagens);
+        }
     
-    var veiculo = new Veiculo{
-            Nome = veiculoDTO.Nome,
-            Marca = veiculoDTO.Marca,
-            Ano = veiculoDTO.Ano
-        };
+        var veiculo = new Veiculo{
+                Nome = veiculoDTO.Nome,
+                Marca = veiculoDTO.Marca,
+                Ano = veiculoDTO.Ano
+            };
 
     veiculoServico.Incluir(veiculo);
 
@@ -97,19 +124,27 @@ app.MapPut("/veiculos/{id}",(
     [FromRoute] int id, 
     VeiculoDTO veiculoDTO,
     IVeiculoServico veiculoServico) => {
-    var veiculo = veiculoServico.BuscaPorId(id);
 
-    if(veiculo == null){
-        return Results.NotFound();
-    }
+         var validacao = validarVeiculoDTO(veiculoDTO);        
 
-    veiculo.Nome = veiculoDTO.Nome;
-    veiculo.Marca = veiculoDTO.Marca;
-    veiculo.Ano = veiculoDTO.Ano;
+        if(validacao.Mensagens.Count != 0)
+        {
+            return Results.BadRequest(validacao.Mensagens);
+        }
 
-    veiculoServico.Atualizar(veiculo);
+        var veiculo = veiculoServico.BuscaPorId(id);
 
-    return Results.Ok(veiculo);
+        if(veiculo == null){
+            return Results.NotFound();
+        }
+
+        veiculo.Nome = veiculoDTO.Nome;
+        veiculo.Marca = veiculoDTO.Marca;
+        veiculo.Ano = veiculoDTO.Ano;
+
+        veiculoServico.Atualizar(veiculo);
+
+        return Results.Ok(veiculo);
 
 }).WithTags("Veiculos");
 
@@ -117,15 +152,15 @@ app.MapDelete("/veiculos/{id}",(
     [FromRoute] int id,     
     IVeiculoServico veiculoServico) => {
 
-    var veiculo = veiculoServico.BuscaPorId(id);
+        var veiculo = veiculoServico.BuscaPorId(id);
 
-    if(veiculo == null){
-        return Results.NotFound();
-    }    
+        if(veiculo == null){
+            return Results.NotFound();
+        }    
 
-    veiculoServico.Apagar(veiculo);
+        veiculoServico.Apagar(veiculo);
 
-    return Results.NoContent();
+        return Results.NoContent();
 
 }).WithTags("Veiculos");
 #endregion
