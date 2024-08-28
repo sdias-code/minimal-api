@@ -41,7 +41,9 @@ app.MapGet("/", () => Results
 #endregion
 
 #region Administradores
-app.MapPost("/administradores/login", ([FromBody] MininalApi.DTOs.LoginDTO loginDTO, IAdministradorServico adminstradorServico) => {
+app.MapPost("/administradores/login", (
+    [FromBody] LoginDTO loginDTO, 
+    IAdministradorServico adminstradorServico) => {
     if(adminstradorServico.Login(loginDTO) != null)
         return Results.Ok("Login realizado com sucesso");    
     else
@@ -52,7 +54,9 @@ app.MapPost("/administradores/login", ([FromBody] MininalApi.DTOs.LoginDTO login
 
 #region Veículos
 
-app.MapPost("/veiculos", ([FromBody] VeiculoDTO veiculoDTO, IVeiculoServico veiculoServico) => {
+app.MapPost("/veiculos", (
+    [FromBody] VeiculoDTO veiculoDTO, 
+    IVeiculoServico veiculoServico) => {
     
     var veiculo = new Veiculo{
             Nome = veiculoDTO.Nome,
@@ -65,18 +69,41 @@ app.MapPost("/veiculos", ([FromBody] VeiculoDTO veiculoDTO, IVeiculoServico veic
     return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
 }).WithTags("Veiculos");
 
-app.MapGet("/veiculos",([FromQuery] int? pagina, IVeiculoServico veiculoServico) => {
+app.MapGet("/veiculos",(
+    [FromQuery] int? pagina, 
+    IVeiculoServico veiculoServico) => {
     var veiculos = veiculoServico.Todos(pagina);
 
     return Results.Ok(veiculos);
 }).WithTags("Veiculos");
 
-app.MapGet("/veiculos/{id}",([FromRoute] int id, IVeiculoServico veiculoServico) => {
+app.MapGet("/veiculos/{id}",(
+    [FromRoute] int id, 
+    IVeiculoServico veiculoServico) => {
     var veiculo = veiculoServico.BuscaPorId(id);
 
     if(veiculo == null){
         return Results.NotFound();
     }
+
+    return Results.Ok(veiculo);
+}).WithTags("Veiculos");
+
+app.MapPut("/veiculos/{id}",(
+    [FromRoute] int id, 
+    VeiculoDTO veiculoDTO,
+    IVeiculoServico veiculoServico) => {
+    var veiculo = veiculoServico.BuscaPorId(id);
+
+    if(veiculo == null){
+        return Results.NotFound();
+    }
+
+    veiculo.Nome = veiculoDTO.Nome;
+    veiculo.Marca = veiculoDTO.Marca;
+    veiculo.Ano = veiculoDTO.Ano;
+
+    veiculoServico.Atualizar(veiculo);
 
     return Results.Ok(veiculo);
 }).WithTags("Veiculos");
