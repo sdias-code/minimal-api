@@ -2,9 +2,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using MininalApi.Dominio.Entidades;
 using MininalApi.Dominio.Enuns;
 using MininalApi.Dominio.Interfaces;
@@ -31,7 +33,9 @@ builder.Services.AddAuthentication(option => {
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8
             .GetBytes(key)
-        )       
+        ),
+        ValidateIssuer = false,
+        ValidateAudience = false    
     };
 });
 
@@ -42,7 +46,31 @@ builder.Services.AddScoped<IVeiculoServico, VeiculoServico>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options => {
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme{
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Insira o token JWT aqui"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }  
+    });
+});
 
 var pbuilder = builder.Configuration.GetConnectionString("conexaoMysql");
 
@@ -63,6 +91,7 @@ var app = builder.Build();
 
 app.MapGet("/", () => Results
     .Json(new Home()))
+    .AllowAnonymous()
     .WithTags("Home");
 
 #endregion
@@ -82,6 +111,7 @@ string GerarTokenJwt(Administrador administrador){
     var claims = new List<Claim>(){
         new Claim("Email", administrador.Email),
         new Claim("Perfil", administrador.Perfil),
+        new Claim(ClaimTypes.Role, administrador.Perfil),
     };
 
     var token = new JwtSecurityToken(
@@ -109,7 +139,9 @@ app.MapPost("/administradores/login", (
     else
         return Results.Unauthorized();
 
-}).WithTags("Administradores");
+})
+.AllowAnonymous()
+.WithTags("Administradores");
 
 app.MapGet("/administradores", (
     [FromQuery] int? pagina, 
@@ -131,6 +163,7 @@ app.MapGet("/administradores", (
 
 })
 .RequireAuthorization()
+.RequireAuthorization(new AuthorizeAttribute{Roles = "Adm"})
 .WithTags("administradores");
 
 app.MapGet("/administradores/{id}",(
@@ -154,6 +187,7 @@ app.MapGet("/administradores/{id}",(
 
 })
 .RequireAuthorization()
+.RequireAuthorization(new AuthorizeAttribute{Roles = "Adm"})
 .WithTags("Administradores");
 
 app.MapPost("/administradores", (
@@ -198,6 +232,7 @@ app.MapPost("/administradores", (
 
 })
 .RequireAuthorization()
+.RequireAuthorization(new AuthorizeAttribute{Roles = "Adm"})
 .WithTags("Administradores");
 
 #endregion
@@ -247,6 +282,7 @@ app.MapPost("/veiculos", (
 
 })
 .RequireAuthorization()
+.RequireAuthorization(new AuthorizeAttribute{Roles = "Adm,Editor"})
 .WithTags("Veiculos");
 
 app.MapGet("/veiculos",(
@@ -273,6 +309,7 @@ app.MapGet("/veiculos/{id}",(
 
 })
 .RequireAuthorization()
+.RequireAuthorization(new AuthorizeAttribute{Roles = "Adm,Editor"})
 .WithTags("Veiculos");
 
 app.MapPut("/veiculos/{id}",(
@@ -303,6 +340,7 @@ app.MapPut("/veiculos/{id}",(
 
 })
 .RequireAuthorization()
+.RequireAuthorization(new AuthorizeAttribute{Roles = "Adm"})
 .WithTags("Veiculos");
 
 app.MapDelete("/veiculos/{id}",(
@@ -321,6 +359,7 @@ app.MapDelete("/veiculos/{id}",(
 
 })
 .RequireAuthorization()
+.RequireAuthorization(new AuthorizeAttribute{Roles = "Adm"})
 .WithTags("Veiculos");
 #endregion
 
